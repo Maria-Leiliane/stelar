@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@stellar/js-xdr": "^3.1.2",
+    "@stellar/stellar-sdk": "^12.3.0",
+    "base32.js": "^0.1.0",
+    "bignumber.js": "^9.1.2",
+    "buffer": "^6.0.3",
+    "dotenv": "^16.4.5",
+    "expo-random": "^14.0.1",
+    "sha.js": "^2.4.11",
+    "stellar-sdk": "^12.2.0",
+    "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/react": "~18.2.79",
+    "@types/react-native": "^0.73.0",
+    "typescript": "~5.3.3"
+  }
+}
