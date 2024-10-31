@@ -1,0 +1,28 @@
+1. Conceito de Transações na Stellar
+From: A conta que inicia a transação, identificada pela chave pública do remetente.
+To: A conta de destino, onde os fundos ou operações da transação serão recebidos.
+Fee: Taxa paga para executar a transação. No Stellar, a taxa é bastante baixa e é ajustada conforme o tamanho da transação.
+Memo: Um campo opcional que permite adicionar notas ou identificadores à transação. É útil para referências ou fins de rastreamento.
+Hash: O identificador único da transação gerado após sua submissão à rede. Esse hash permite rastrear e verificar a transação.
+Explorer: Ferramenta online, como Stellar Expert, que permite pesquisar e visualizar o histórico de transações e contas na rede.
+Redes: O Stellar possui duas redes principais:
+Testnet: Rede de teste para desenvolvimento e experimentação.
+Mainnet: Rede principal usada para transações reais.
+2. Tipos de Transações Possíveis em Stellar
+create_account_op: Cria uma nova conta Stellar, definindo um saldo inicial e a chave pública da conta nova.
+payment_op: Envia fundos de uma conta para outra, seja na forma de lumens (XLM) ou outros ativos emitidos na rede.
+3. Criando uma Transação Simples em Python
+Vamos criar uma transação com create_account_op e payment_op usando o Stellar SDK em Python.
+
+4. Desafio Inicial: Criar uma Transação com "DEV30K" no Memo
+Para criar uma transação com um memo "DEV30K", basta adicionar o memo ao TransactionBuilder.
+
+5. Explicação do Desafio Número 2
+No desafio 2, você deverá assinar a mensagem "DEV30K" com sua chave privada e enviar a transação para a rede Mainnet com a operação manage_data_op para armazenar a assinatura no campo MEMO.
+
+Passo a passo:
+
+Assinar a Mensagem: Use a chave privada para assinar a string "DEV30K".
+Criar a Transação com manage_data_op: Adicione manage_data_op para gravar dados na conta.
+Enviar para a Mainnet: Submeta a transação na rede Mainnet.
+Critério de Aceite: A transação será validada pelo hash, que será enviado como resposta para confirmação.
