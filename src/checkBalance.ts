@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import { Keypair, Server } from 'stellar-sdk';
+import Server from 'stellar-sdk';
 
 // Carrega o arquivo .env
 dotenv.config();
