@@ -1,5 +1,5 @@
-import 'dotenv/config';
 import StellarSdk from 'stellar-sdk';
+import 'dotenv/config';
 
 // Configuração para rede de testes
 const server = new StellarSdk.Server('https://horizon-testnet.stellar.org');

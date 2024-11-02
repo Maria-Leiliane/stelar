@@ -1,29 +1,24 @@
+import StellarSdk from 'stellar-sdk';  // Import correto para Stellar SDK
 import 'dotenv/config';
-import StellarSdk from 'stellar-sdk';
 
-// Configuração para rede principal
+// Configuração para a rede principal da Stellar
 const server = new StellarSdk.Server('https://horizon.stellar.org');
-const sourceSecret = process.env.STELLAR_SECRET_KEY;  // Chave privada carregada do .env
+const sourceSecret = process.env.STELLAR_SECRET_KEY;  // Insira sua chave privada aqui
 const sourceKeypair = StellarSdk.Keypair.fromSecret(sourceSecret);
-const destinationKeypair = StellarSdk.Keypair.random();
-
-const message = 'DEV30K';
-
-// Assinatura da mensagem "DEV30K" usando a chave privada da conta
-const signature = sourceKeypair.sign(Buffer.from(message)).toString('base64');
 
 (async () => {
   try {
+    // Carregar a conta de origem
     const sourceAccount = await server.loadAccount(sourceKeypair.publicKey());
 
     // Construir a transação com manageData_op e memo
     const transaction = new StellarSdk.TransactionBuilder(sourceAccount, {
       fee: await server.fetchBaseFee(),
-      networkPassphrase: StellarSdk.Networks.PUBLIC  // Mainnet
+      networkPassphrase: StellarSdk.Networks.PUBLIC
     })
       .addOperation(StellarSdk.Operation.manageData({
         name: 'DEV30K Signature',
-        value: signature  // Assinatura codificada
+        value: 'ASSINATURA_BASE64'  // Insira o valor da assinatura em base64
       }))
       .addMemo(StellarSdk.Memo.text('DEV30K'))
       .setTimeout(30)
@@ -31,8 +26,8 @@ const signature = sourceKeypair.sign(Buffer.from(message)).toString('base64');
 
     transaction.sign(sourceKeypair);
     const result = await server.submitTransaction(transaction);
-    console.log('Transaction with manageData successful! Hash:', result.hash);
+    console.log('Transação com manageData bem-sucedida! Hash:', result.hash);
   } catch (error) {
-    console.error('Transaction with manageData failed:', error);
+    console.error('Falha na transação com manageData:', error);
   }
 })();
