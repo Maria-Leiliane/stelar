@@ -1,4 +1,4 @@
-import Server from 'stellar-sdk';
+import stellarSdk from 'stellar-sdk';
 import * as dotenv from 'dotenv';
 
 // Carrega o arquivo .env
@@ -14,11 +14,12 @@ if (!publicKey || !secretKey) {
 
 // Exemplo de função para verificar saldo
 const checkBalance = async () => {
+    const Server = stellarSdk.Server;
     const server = new Server('https://horizon.stellar.org');
     const account = await server.loadAccount(publicKey);
 
     console.log('Saldos:');
-    account.balances.forEach(balance => {
+    account.balances.forEach((balance: { asset_type: any; balance: any; }) => {
         console.log(`${balance.asset_type}: ${balance.balance}`);
     });
 };

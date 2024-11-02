@@ -1,4 +1,16 @@
 {
-  "compilerOptions": {},
-  "extends": "expo/tsconfig.base"
+  "compilerOptions": {
+    "target": "es6",                           // ou o que for apropriado para seu projeto
+    "module": "commonjs",                      // ou "esnext", dependendo do seu uso
+    "esModuleInterop": true,
+    "strict": true,                            // opcional, mas recomendado
+    "skipLibCheck": true                       // opcional, para melhorar a velocidade da compilação
+    // ... outras opções conforme necessário
+  },
+  "include": [
+    "src/**/*.ts"                             // ou o caminho correto para seus arquivos TypeScript
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
