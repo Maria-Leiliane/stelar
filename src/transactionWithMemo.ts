@@ -3,7 +3,7 @@ import StellarSdk from 'stellar-sdk';
 
 // Configuração para rede de testes
 const server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
-const sourceSecret = process.env.SOURCE_SECRET;  // Chave privada carregada do .env
+const sourceSecret = process.env.STELLAR_SECRET_KEY;  // Chave privada carregada do .env
 const sourceKeypair = StellarSdk.Keypair.fromSecret(sourceSecret);
 const destinationKeypair = StellarSdk.Keypair.random();  // Cria uma nova conta aleatória para receber o pagamento
 

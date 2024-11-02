@@ -1,21 +1,29 @@
-import * as crypto from 'crypto';
-import * as Keypair from 'stellar-sdk';
+import 'dotenv/config';
+import StellarSdk from 'stellar-sdk';
+
+// Configuração para rede principal
+const server = new StellarSdk.Server('https://horizon.stellar.org');
+const sourceSecret = process.env.STELLAR_SECRET_KEY;  // Chave privada carregada do .env
+const sourceKeypair = StellarSdk.Keypair.fromSecret(sourceSecret);
+const destinationKeypair = StellarSdk.Keypair.random();
 
 const message = 'DEV30K';
-const signature = crypto.sign('sha256', Buffer.from(message), {
-  key: sourceKeypair.secret(),
-  padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
-});
+
+// Assinatura da mensagem "DEV30K" usando a chave privada da conta
+const signature = sourceKeypair.sign(Buffer.from(message)).toString('base64');
 
 (async () => {
   try {
+    const sourceAccount = await server.loadAccount(sourceKeypair.publicKey());
+
+    // Construir a transação com manageData_op e memo
     const transaction = new StellarSdk.TransactionBuilder(sourceAccount, {
       fee: await server.fetchBaseFee(),
       networkPassphrase: StellarSdk.Networks.PUBLIC  // Mainnet
     })
       .addOperation(StellarSdk.Operation.manageData({
         name: 'DEV30K Signature',
-        value: signature.toString('base64')  // Assinatura codificada
+        value: signature  // Assinatura codificada
       }))
       .addMemo(StellarSdk.Memo.text('DEV30K'))
       .setTimeout(30)
