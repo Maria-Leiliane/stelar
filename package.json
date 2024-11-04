@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@stellar/js-xdr": "^3.1.2",
     "@stellar/stellar-sdk": "^12.3.0",
     "base32.js": "^0.1.0",
     "bignumber.js": "^9.1.2",
