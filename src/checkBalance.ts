@@ -1,27 +1,27 @@
-import stellarSdk from 'stellar-sdk';
-import * as dotenv from 'dotenv';
+import StellarSdk from 'stellar-sdk';
+import 'dotenv/config';
 
-// Carrega o arquivo .env
-dotenv.config();
-
-// Recupera as chaves do .env
 const publicKey = process.env.STELLAR_PUBLIC_KEY;
-const secretKey = process.env.STELLAR_SECRET_KEY;
+const server = new StellarSdk.Server(process.env.STELLAR_SERVER_URL);
 
-if (!publicKey || !secretKey) {
-    throw new Error("As chaves Stellar não estão configuradas no arquivo .env");
-}
+if (!publicKey) throw new Error("A chave pública não está configurada no arquivo .env");
 
-// Exemplo de função para verificar saldo
-const checkBalance = async () => {
-    const Server = stellarSdk.Server;
-    const server = new Server('https://horizon.stellar.org');
-    const account = await server.loadAccount(publicKey);
-
-    console.log('Saldos:');
-    account.balances.forEach((balance: { asset_type: any; balance: any; }) => {
-        console.log(`${balance.asset_type}: ${balance.balance}`);
-    });
+// Tipo de saldo no Stellar
+type Balance = {
+    asset_type: string;
+    balance: string;
 };
 
-checkBalance().catch(error => console.error("Erro ao verificar saldo:", error));
+const checkBalance = async () => {
+    try {
+        const account = await server.loadAccount(publicKey);
+        console.log('Saldos:');
+        account.balances.forEach((balance: Balance) => {
+            console.log(`${balance.asset_type}: ${balance.balance}`);
+        });
+    } catch (error) {
+        console.error("Erro ao verificar saldo:", error);
+    }
+};
+
+checkBalance();
