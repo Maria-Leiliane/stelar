@@ -17,7 +17,7 @@ const sourceKeypair = StellarSdk.Keypair.fromSecret(sourceSecret);
       networkPassphrase: StellarSdk.Networks.PUBLIC
     })
       .addOperation(StellarSdk.Operation.manageData({
-        name: 'DEV30K Signature',
+        name: 'DEV30K',
         value: 'ASSINATURA_BASE64'  // Insira o valor da assinatura em base64
       }))
       .addMemo(StellarSdk.Memo.text('DEV30K'))
